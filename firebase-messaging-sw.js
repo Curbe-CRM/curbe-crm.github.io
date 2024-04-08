@@ -1,5 +1,9 @@
-importScripts("https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.4.0/firebase-messaging-compat.js");
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.4.0/firebase-app-compat.js"
+);
+importScripts(
+  "https://www.gstatic.com/firebasejs/10.4.0/firebase-messaging-compat.js"
+);
 
 firebase.initializeApp({
   apiKey: "AIzaSyD1B7kx2tZTsOtaFtyyLdPm2nSC1rD8B4k",
@@ -17,21 +21,24 @@ const messaging = firebase.messaging();
 let darkPatternsValue = 0;
 
 self.addEventListener("message", function (event) {
-    if (event.data && event.data.type === "SET_DARK_PATTERNS_VALUE") {
-        darkPatternsValue = event.data.value;
-    }
+  if (event.data && event.data.type === "SET_DARK_PATTERNS_VALUE") {
+    darkPatternsValue = event.data.value;
+  }
 });
 
-messaging.onBackgroundMessage(function(payload) {
+messaging.onBackgroundMessage(function (payload) {
   if (darkPatternsValue != 1) {
-      return;
+    return;
   }
   lastNotificationId = currentNotificationId;
   const notificationTitle = payload.notification.title;
   const notificationOptions = {
-      body: payload.notification.body,
+    body: payload.notification.body,
   };
-  return self.registration.showNotification(notificationTitle, notificationOptions);
+  return self.registration.showNotification(
+    notificationTitle,
+    notificationOptions
+  );
 });
 
 self.addEventListener("notificationclick", function (event) {
