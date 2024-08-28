@@ -40,7 +40,7 @@
 
     <script>
       // The value below is injected by flutter build, do not touch.
-      var flutterServiceWorkerVersion = "{{flutter_service_worker_version}}";
+      const serviceWorkerVersion = null;
     </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
@@ -53,7 +53,7 @@
         // Download main.dart.js
         _flutter.loader.load({
           serviceWorker: {
-            serviceWorkerVersion: flutterServiceWorkerVersion,
+            serviceWorkerVersion: serviceWorkerVersion,
           },
           onInitialFlutterRender: function (engine) {
             // Initialize the Flutter engine
