@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="0; URL='./index.html'" />
+  <meta charset="UTF-8">
+  <title>Redirecting...</title>
   <script type="text/javascript">
-    // Redirige a index.html preservando la ruta original
+    // Obtener la ubicación actual
     var l = window.location;
-    var pathSegmentsToKeep = 1; // Número de segmentos de ruta a preservar
-    l.replace(
-      l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + 
-      l.pathname.split('/').slice(0, pathSegmentsToKeep + 1).join('/') + '/index.html' +
-      (l.search ? l.search : '') + (l.hash ? l.hash : '')
-    );
+
+    // Redirigir a la ruta correcta sin incluir /index.html
+    if (l.pathname.endsWith('/index.html')) {
+      var newUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + 
+                   l.pathname.replace('/index.html', '') + l.search + l.hash;
+      window.history.replaceState(null, null, newUrl);
+      window.location.replace(newUrl);
+    } else {
+      // Redirige cualquier otro 404 a la raíz (index.html), preservando la URL actual
+      var newUrl = l.protocol + '//' + l.hostname + (l.port ? ':' + l.port : '') + 
+                   '/index.html' + l.search + l.hash;
+      window.history.replaceState(null, null, l.pathname + l.search + l.hash);
+      window.location.replace(newUrl);
+    }
   </script>
 </head>
 <body>
+  <p>Redirecting...</p>
 </body>
 </html>
